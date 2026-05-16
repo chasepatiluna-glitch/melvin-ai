@@ -1,35 +1,40 @@
-let chatHistory = [];
-
+<script>
 async function send() {
-  let msg = document.getElementById("msg").value;
 
-  chatHistory.push({ role: "user", content: msg });
+  let msg = document.getElementById("msg").value;
+  if (!msg) return;
+
+  addMessage(msg, "user");
+
+  document.getElementById("msg").value = "";
 
   const res = await fetch("/api/chat", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      message: msg,
-      history: chatHistory
+      message: msg
     })
   });
 
   const data = await res.json();
 
-  chatHistory.push({ role: "ai", content: data.reply });
-
   addMessage(data.reply, "ai");
 }
-<button onclick="startVoice()">🎤</button>
-function showTyping() {
-  let div = document.createElement("div");
-  div.id = "typing";
-  div.innerText = "AI is typing...";
-  div.className = "msg ai";
-  document.getElementById("messages").appendChild(div);
-}
 
-function removeTyping() {
-  let el = document.getElementById("typing");
-  if (el) el.remove();
+/* ===================== */
+/* CHAT DISPLAY */
+/* ===================== */
+
+function addMessage(text, type) {
+  let div = document.createElement("div");
+  div.className = "msg " + type;
+  div.innerText = text;
+
+  document.getElementById("messages").appendChild(div);
+
+  document.getElementById("messages").scrollTop =
+    document.getElementById("messages").scrollHeight;
 }
+</script>
