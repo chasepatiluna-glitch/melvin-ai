@@ -80,8 +80,27 @@
 </div>
 
 <script>
-async function send() {
+async function send()showTyping(); {removeTyping();
+function showTyping() {showTyping();
 
+const res = await fetch(...);
+
+const data = await res.json();
+
+removeTyping();
+
+addMessage(data.reply, "ai");
+  let div = document.createElement("div");
+  div.id = "typing";
+  div.className = "msg ai";
+  div.innerText = "AI is typing...";
+  document.getElementById("messages").appendChild(div);
+}
+
+function removeTyping() {
+  let el = document.getElementById("typing");
+  if (el) el.remove();
+}
   let msg = document.getElementById("msg").value;
   if (!msg) return;
 
@@ -94,12 +113,14 @@ async function send() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ message: msg })
-  });
+    body: body: JSON.stringify({
+  message: msg,
+  history: chatHistory
+})
 
   const data = await res.json();
 
-  addMessage(data.reply, "ai");
+  addMessage(data.reply, "ai");chatHistory.push({ role: "ai", content: data.reply });
 }
 
 function addMessage(text, type) {
@@ -108,8 +129,7 @@ function addMessage(text, type) {
   div.innerText = text;
 
   document.getElementById("messages").appendChild(div);
-}
+}let chatHistory = [];chatHistory.push({ role: "user", content: msg });chatHistory.push({ role: "ai", content: data.reply });
 </script>
-
 </body>
 </html>
