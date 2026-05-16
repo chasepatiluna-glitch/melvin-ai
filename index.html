@@ -1,9 +1,39 @@
-fetch("/api/chat", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    message: msg
-  })
-});
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Melvin AI</title>
+</head>
+<body>
+
+<h2>🔥 Melvin AI Chat</h2>
+
+<input id="msg" placeholder="Type message">
+<button onclick="send()">Send</button>
+
+<p id="out"></p>
+
+<script>
+async function send() {
+
+  let msg = document.getElementById("msg").value;
+
+  document.getElementById("out").innerText = "Thinking...";
+
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: msg
+    })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("out").innerText = data.reply;
+}
+</script>
+
+</body>
+</html>
