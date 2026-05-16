@@ -21,3 +21,15 @@ async function send() {
   addMessage(data.reply, "ai");
 }
 <button onclick="startVoice()">🎤</button>
+function showTyping() {
+  let div = document.createElement("div");
+  div.id = "typing";
+  div.innerText = "AI is typing...";
+  div.className = "msg ai";
+  document.getElementById("messages").appendChild(div);
+}
+
+function removeTyping() {
+  let el = document.getElementById("typing");
+  if (el) el.remove();
+}
