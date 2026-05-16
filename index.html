@@ -1,4 +1,7 @@
 <script>
+
+let chatHistory = [];
+
 async function send() {
 
   let msg = document.getElementById("msg").value;
@@ -8,23 +11,32 @@ async function send() {
 
   document.getElementById("msg").value = "";
 
+  showTyping(); // 👉 ADD ni (typing start)
+
+  chatHistory.push({ role: "user", content: msg });
+
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: msg
+      message: msg,
+      history: chatHistory
     })
   });
 
   const data = await res.json();
 
+  removeTyping(); // 👉 REMOVE typing
+
+  chatHistory.push({ role: "ai", content: data.reply });
+
   addMessage(data.reply, "ai");
 }
 
 /* ===================== */
-/* CHAT DISPLAY */
+/* CHAT UI */
 /* ===================== */
 
 function addMessage(text, type) {
@@ -37,8 +49,22 @@ function addMessage(text, type) {
   document.getElementById("messages").scrollTop =
     document.getElementById("messages").scrollHeight;
 }
-</script>
-<div id="messages"></div>
 
-<input id="msg" placeholder="Type..." />
-<button onclick="send()">Send</button>
+/* ===================== */
+/* TYPING EFFECT */
+/* ===================== */
+
+function showTyping() {
+  let div = document.createElement("div");
+  div.id = "typing";
+  div.className = "msg ai";
+  div.innerText = "AI is typing...";
+  document.getElementById("messages").appendChild(div);
+}
+
+function removeTyping() {
+  let el = document.getElementById("typing");
+  if (el) el.remove();
+}
+
+</script>
