@@ -21,7 +21,10 @@ async function send() {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: msg,
+     <div id="messages"></div>
+
+<input id="msg" placeholder="Type message..." />
+<button onclick="send()">Send</button> message: msg,
       history: chatHistory
     })
   });
