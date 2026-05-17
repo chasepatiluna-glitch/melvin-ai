@@ -2,41 +2,26 @@ export default async function handler(req, res) {
 
   const message = (req.body?.message || "").toLowerCase();
 
-  let reply = "Hmm... dili ko sure ana bossing 😅";
+  let reply = "Wala ko kasabot bossing 😅";
 
-  // 🧠 SIMPLE BRAIN LOGIC
-  if (message.includes("hello") || message.includes("hi")) {
-    reply = "Hello bossing 👋 kumusta ka?";
+  if (message.includes("hello")) {
+    reply = "Hello bossing 👋";
   }
 
   else if (message.includes("kamusta")) {
-    reply = "Okay ra ko permi 😄 ikaw kumusta?";
+    reply = "Okay ra ko 😄 ikaw?";
   }
 
   else if (message.includes("name")) {
-    reply = "Ako imong simple AI assistant 🤖";
-  }
-
-  else if (message.includes("love")) {
-    reply = "Ayyy 😳 AI ra ko pero na touch ko ana!";
+    reply = "Ako si Melvin AI 🤖";
   }
 
   else if (message.includes("bye")) {
-    reply = "Bye bossing 👋 balik lang anytime!";
+    reply = "Bye bossing 👋";
   }
 
-  else if (message.includes("unsa")) {
-    reply = "Pwede ka mangutana bisan unsa bossing 😊";
-  }
-
-  else if (message.includes("help")) {
-    reply = "Sure ko mo tabang nimo 👍 unsa imong pangutana?";
-  }
-
-  else if (message.includes("joke")) {
-    reply = "Ngano walay WiFi ang kaldero? kay rice fields 😂";
-  }
-
-  return res.status(200).json({ reply });
+  return res.status(200).json({
+    reply: reply
+  });
 
 }
