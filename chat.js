@@ -5,7 +5,12 @@ export default async function handler(req, res) {
   let reply = "Wala ko kasabot bossing 😅";
 
   /* HELLO */
-  if (message.includes("hello")) {
+  if (
+  message.includes("hello") ||
+  message.includes("hi") ||
+  message.includes("hey") ||
+  message.includes("yo")
+) {
 
     const replies = [
       "Hello bossing 👋",
@@ -18,7 +23,11 @@ export default async function handler(req, res) {
   }
 
   /* KAMUSTA */
-  else if (message.includes("kamusta")) {
+  else if (
+  message.includes("kamusta") ||
+  message.includes("kumusta") ||
+  message.includes("how are you")
+) { {
 
     const replies = [
       "Okay ra ko 😄 ikaw?",
@@ -54,7 +63,12 @@ export default async function handler(req, res) {
   }
 
   /* LOVE */
-  else if (message.includes("love")) {
+  else if (
+  message.includes("love") ||
+  message.includes("crush") ||
+  message.includes("gf") ||
+  message.includes("bf")
+) { {
 
     const replies = [
       "Ayyy na inlove 😳",
